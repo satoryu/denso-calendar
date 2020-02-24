@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'denso/calendar/cli'
+
+Denso::Calendar::Cli.run(ARGV)
