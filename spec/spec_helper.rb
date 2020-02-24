@@ -1,5 +1,11 @@
-require "bundler/setup"
-require "denso/calendar"
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'denso/calendar'
+
+require 'webmock/rspec'
+
+SPEC_ROOT = File.expand_path(__dir__)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -10,5 +16,9 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  config.before :suite do
+    WebMock.disable_net_connect!
   end
 end

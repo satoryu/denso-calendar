@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'denso/calendare'
+
 module Denso
   module Calendar
     class Cli
