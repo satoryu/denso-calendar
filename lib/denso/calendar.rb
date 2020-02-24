@@ -9,7 +9,6 @@ module Denso
   class Calendar
     URI = 'https://www.denso.com/jp/ja/about-us/calendar/'
 
-    class Error < StandardError; end
     # Your code goes here...
 
     # Loads calendars from DENSO site
@@ -20,37 +19,40 @@ module Denso
     def self.load(type = :production)
       content = Net::HTTP.get(uri)
       doc = Nokogiri::HTML(content)
-      doc.xpath("//h2/a[@id='#{type}']/../../following-sibling::div[contains(@class, 'denso-calendar')]")
-      tables = doc.xpath('table')
-      @calendars = tables.map { |table| Denso::Calendar.new(table) }
+      tables = doc.xpath("//h2/a[@id='#{type}']/../../following-sibling::div[contains(@class, 'denso-calendar')]")
+
+      Calendar.new(tables)
     end
 
     def self.uri
       @uri ||= ::URI.parse(URI)
     end
 
-    attr_reader :year, :month, :holidays
+    attr_reader :holidays
 
-    def initialize(table_doc)
-      @doc = table_doc
+    def initialize(tables_doc)
+      @doc = tables_doc
 
       parse
-    end
-
-    def holidays
-      @doc.css('td.holiday')
-
-      [Date.today]
     end
 
     private
 
     def parse
-      caption = @doc.xpath('//table/caption/text()').to_s
-      caption.match(/(\d{4})年(\d{2})月/) do |m|
-        @year = m[1].to_i
-        @month = m[2].to_i
+      @holidays = []
+
+      @doc.xpath('//table').each do |table|
+        caption = table.xpath('//caption/text()').to_s
+        m = caption.match(/(\d{4})年(\d{2})月/)
+        year = m[1].to_i
+        month = m[2].to_i
+
+        table.css('td.holiday').each do |element|
+          @holidays << Date.new(year, month, element.content.to_i)
+        end
       end
+
+      @holidays
     end
   end
 end
