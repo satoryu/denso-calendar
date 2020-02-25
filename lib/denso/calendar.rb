@@ -2,6 +2,7 @@
 
 require 'denso/calendar/version'
 require 'uri'
+require 'date'
 require 'nokogiri'
 require 'net/http'
 
@@ -19,7 +20,7 @@ module Denso
     def self.load(type = :production)
       content = Net::HTTP.get(uri)
       doc = Nokogiri::HTML(content)
-      tables = doc.xpath("//h2/a[@id='#{type}']/../../following-sibling::div[contains(@class, 'denso-calendar')]")
+      tables = doc.xpath("//h2/a[@id='#{type}']/../../following-sibling::div[contains(@class, 'denso-calendar')][1]")
 
       Calendar.new(tables)
     end
@@ -41,9 +42,9 @@ module Denso
     def parse
       @holidays = []
 
-      @doc.xpath('//table').each do |table|
-        caption = table.xpath('//caption/text()').to_s
-        m = caption.match(/(\d{4})年(\d{2})月/)
+      @doc.xpath('.//table').each do |table|
+        caption = table.xpath('./caption/text()').to_s
+        m = caption.match(/(\d{4})年(\d{1,2})月/)
         year = m[1].to_i
         month = m[2].to_i
 

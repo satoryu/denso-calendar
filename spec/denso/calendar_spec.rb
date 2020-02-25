@@ -7,9 +7,19 @@ RSpec.describe Denso::Calendar do
       stub_request(:get, 'https://www.denso.com/jp/ja/about-us/calendar/')
         .to_return(status: 200, body: File.read(calendar_path))
     end
+    let(:calendar) { Denso::Calendar.load }
 
     it 'contains request' do
-      expect(Denso::Calendar.load).to be_a(Denso::Calendar)
+      expect(calendar).to be_a(Denso::Calendar)
+    end
+    specify 'its Nov. 23 is not holiday' do
+      expect(calendar.holidays).to_not include(Date.new(2020, 11, 23))
+    end
+
+    context 'When loading tokyo calendar' do
+      specify 'its november 23 is holiday' do
+        expect(Denso::Calendar.load(:tokyo).holidays).to include(Date.new(2020, 11, 23))
+      end
     end
   end
 
