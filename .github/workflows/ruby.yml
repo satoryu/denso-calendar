@@ -1,6 +1,13 @@
 name: Run RSpec
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "!master"
+    types: [opened, synchronize]
 
 jobs:
   build:
