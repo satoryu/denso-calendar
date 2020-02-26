@@ -30,5 +30,6 @@ jobs:
           restore-keys: ${{ runner.os }}-gems-
       - run: |
           gem install bundler
+          bundle config path vendor/bundle
           bundle install
           bundle exec rake
