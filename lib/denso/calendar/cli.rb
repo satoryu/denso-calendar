@@ -16,6 +16,7 @@ module Denso
         require 'optparse'
         opt = OptionParser.new
         opt.on('-t TYPE', '--type TYPE') { |v| v }
+        opt.on('-f FORMATTER', '--formatter FORMATTER') { |v| v }
 
         @options = {}
         opt.parse(argv, into: @options)

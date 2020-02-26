@@ -35,7 +35,8 @@ desnso-calendar --type production
 
 ### Options
 
-- `-t`, `--type`: Optional. `production` in default. `tokyo` and `flex` are available.
+- `-t TYPE`, `--type TYPE`: Optional. `production` in default. `production`, `tokyo` and `flex` are available.
+- `-f FORMATTER`, `--formatter FORMATTER`: Optional. `plain` in default. `ical` and `plain` are available.
 
 ### API
 
