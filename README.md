@@ -24,7 +24,30 @@ gem install denso-calendar
 
 ## Usage
 
-TODO: Write usage instructions here
+### CLI
+
+This gem provides a CLI `denso-calendar`.
+You can see all holidays for a specific employee type as follows:
+
+```sh
+desnso-calendar --type production
+```
+
+### Options
+
+- `-t`, `--type`: Optional. `production` in default. `tokyo` and `flex` are available.
+
+### API
+
+You can deal with holidays in Denso Calendar in your code:
+
+```ruby
+require 'denso/calendar'
+
+calendar = Denso::Calendar.load # :production in default.
+
+holidays = calendar.holidays # returns an Array of Date
+```
 
 ## Development
 
