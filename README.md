@@ -35,7 +35,7 @@ You can see all holidays for a specific employee type as follows:
 desnso-calendar --type production
 ```
 
-### Options
+#### Options
 
 - `-t TYPE`, `--type TYPE`: Optional. `production` in default. `production`, `tokyo` and `flex` are available.
 - `-f FORMATTER`, `--formatter FORMATTER`: Optional. `plain` in default. `ical` and `plain` are available.
