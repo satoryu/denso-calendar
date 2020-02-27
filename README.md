@@ -1,5 +1,7 @@
 # Denso::Calendar
 
+![Run RSpec](https://github.com/satoryu/denso-calendar/workflows/Run%20RSpec/badge.svg)
+
 This gem provides a CLI and API for developers to parse DENSO Calendar published in [the website](https://www.denso.com/jp/ja/about-us/calendar/).
 
 ## Installation
