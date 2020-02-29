@@ -50,6 +50,7 @@ jobs:
           key: ${{ runner.os }}-2.7-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-2.7-gems-
       - run: |
+          gem install bundler
           gem install yard
           bundle config vendor/bundle
           bundle exec denso-calendar --type tokyo doc/tokyo.ics
