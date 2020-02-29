@@ -52,7 +52,7 @@ jobs:
       - run: |
           gem install bundler
           gem install yard
-          bundle config vendor/bundle
+          bundle config path vendor/bundle
           bundle exec denso-calendar --type tokyo doc/tokyo.ics
           bundle exec denso-calendar --type production doc/production.ics
           bundle exec denso-calendar --type flex doc/flex.ics
