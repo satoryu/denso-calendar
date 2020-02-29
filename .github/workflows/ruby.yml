@@ -33,3 +33,26 @@ jobs:
           bundle config path vendor/bundle
           bundle install
           bundle exec rake
+  build_gh-page:
+    name: Build gh-page
+    needs: build
+    env:
+      BUILD_DIR: doc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-2.7-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-2.7-gems-
+      - run: |
+          gem install yard
+          bundle config vendor/bundle
+          bundle exec denso-calendar --type tokyo doc/tokyo.ics
+          bundle exec denso-calendar --type production doc/production.ics
+          bundle exec denso-calendar --type flex doc/flex.ics
+      - uses: maxheld83/ghpages@v0.2.1
