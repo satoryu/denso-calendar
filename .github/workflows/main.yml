@@ -37,7 +37,7 @@ jobs:
   build_gh-page:
     name: Build gh-page
     needs: build
-    if: github.event_name == 'pull'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
