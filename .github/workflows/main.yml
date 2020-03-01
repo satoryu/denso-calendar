@@ -1,4 +1,4 @@
-name: Run RSpec
+name: CI/CD
 
 on:
   push:
@@ -33,9 +33,11 @@ jobs:
           bundle config path vendor/bundle
           bundle install
           bundle exec rake
+
   build_gh-page:
     name: Build gh-page
     needs: build
+    if: github.event_name == 'pull'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
