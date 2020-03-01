@@ -36,8 +36,6 @@ jobs:
   build_gh-page:
     name: Build gh-page
     needs: build
-    env:
-      BUILD_DIR: doc
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -58,4 +56,7 @@ jobs:
           bundle exec denso-calendar --type tokyo -f ical > doc/tokyo.ics
           bundle exec denso-calendar --type production -f ical > doc/production.ics
           bundle exec denso-calendar --type flex -f ical > doc/flex.ics
-      - uses: maxheld83/ghpages@v0.2.1
+      - uses: maxheld83/ghpages@v0.3.0
+        env:
+          BUILD_DIR: doc
+          GH_PAT: ${{ secrets.GH_PAT }}
