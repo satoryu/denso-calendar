@@ -54,6 +54,7 @@ jobs:
           gem install yard
           yardoc
           bundle config path vendor/bundle
+          bundle install
           bundle exec denso-calendar --type tokyo -f ical > doc/tokyo.ics
           bundle exec denso-calendar --type production -f ical > doc/production.ics
           bundle exec denso-calendar --type flex -f ical > doc/flex.ics
