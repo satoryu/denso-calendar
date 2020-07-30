@@ -89,6 +89,15 @@ RSpec.describe Denso::Calendar do
   let(:table) { Nokogiri::HTML(content) }
   let(:calendar) { Denso::Calendar.new(table) }
 
+  describe '#days' do
+    it 'returns an array of Date object' do
+      expect(calendar.days).to all be_a(Date)
+    end
+    it 'returns 30 days' do
+      expect(calendar.days.length).to be 30
+    end
+  end
+
   describe '#hodays' do
     it 'returns an array of Date object' do
       expect(calendar.holidays).to all be_a(Date)
@@ -97,6 +106,12 @@ RSpec.describe Denso::Calendar do
       novembers_holidays = %w[1 7 8 14 15 21 22 28 29].map { |d| Date.new(2020, 11, d.to_i) }
 
       expect(calendar.holidays).to match_array(novembers_holidays)
+    end
+  end
+
+  describe '#business_days' do
+    it 'returns an array of Date object' do
+      expect(calendar.business_days).to all be_a(Date)
     end
   end
 end

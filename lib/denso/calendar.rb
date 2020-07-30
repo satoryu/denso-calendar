@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'denso/calendar/version'
+require 'denso/calendar/date'
 require 'uri'
-require 'date'
 require 'nokogiri'
 require 'net/http'
 
@@ -29,7 +29,7 @@ module Denso
       @uri ||= ::URI.parse(URI)
     end
 
-    attr_reader :holidays
+    attr_reader :days
 
     def initialize(tables_doc)
       @doc = tables_doc
@@ -37,10 +37,18 @@ module Denso
       parse
     end
 
+    def business_days
+      @business_days ||= days.select(&:business_day?)
+    end
+
+    def holidays
+      @holidays ||= days.select(&:holiday?)
+    end
+
     private
 
     def parse
-      @holidays = []
+      @days = []
 
       @doc.xpath('.//table').each do |table|
         caption = table.xpath('./caption/text()').to_s
@@ -48,12 +56,15 @@ module Denso
         year = m[1].to_i
         month = m[2].to_i
 
-        table.css('td.holiday').each do |element|
-          @holidays << Date.new(year, month, element.content.to_i)
+        table.css('td').each do |element|
+          day = element.content
+          next if day !~ /\A\d+\Z/
+
+          holiday = element['class'] && element['class'].include?('holiday')
+
+          @days << Denso::Calendar::Date.new(year, month, day.to_i, holiday: holiday)
         end
       end
-
-      @holidays
     end
   end
 end
