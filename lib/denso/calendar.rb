@@ -29,6 +29,7 @@ module Denso
       @uri ||= ::URI.parse(URI)
     end
 
+    # @return [Array[Denso::Calendar::Date]]
     attr_reader :days
 
     def initialize(tables_doc)
@@ -37,10 +38,18 @@ module Denso
       parse
     end
 
+    # Returns all business days in the Calendar
+    #
+    # @return [Array[Denso::Calendar::Date]]
+    # @see Denso::Calendar::Date#business_day?
     def business_days
       @business_days ||= days.select(&:business_day?)
     end
 
+    # Returns all holidays in the Calendar
+    #
+    # @return [Array[Denso::Calendar::Date]]
+    # @see Denso::Calendar::Date#holiday?
     def holidays
       @holidays ||= days.select(&:holiday?)
     end

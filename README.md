@@ -1,5 +1,6 @@
 # Denso::Calendar
 
+[![Gem Version](https://badge.fury.io/rb/denso-calendar.svg)](https://badge.fury.io/rb/denso-calendar)
 ![CI/CD](https://github.com/satoryu/denso-calendar/workflows/CI/CD/badge.svg)
 
 This gem provides a CLI and API for developers to parse DENSO Calendar published in [the website](https://www.denso.com/jp/ja/about-us/calendar/).
@@ -61,6 +62,8 @@ calendar = Denso::Calendar.load # :production in default.
 
 holidays = calendar.holidays # returns an Array of Date
 ```
+
+[Read more...](https://satoryu.github.io/denso-calendar/)
 
 ## Development
 

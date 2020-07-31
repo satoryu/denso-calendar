@@ -12,10 +12,18 @@ module Denso
         @holiday = options[:holiday]
       end
 
+      # Returns true if the day is holiday
+      #
+      # @return [Boolean]
+      # @see #business_day?
       def holiday?
         @holiday
       end
 
+      # Returns true if the day is business day, meaning not holiday
+      #
+      # @return [Boolean]
+      # @see #holiday?
       def business_day?
         !holiday?
       end
